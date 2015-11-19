@@ -81,6 +81,14 @@ class Flower
     int flowerColorR = round(random(1, this.charList.length) / this.charList.length * 255);
     int flowerColorG = round(random(1, this.charList.length) / this.charList.length * 255);
     int flowerColorB = round(random(1, this.charList.length) / this.charList.length * 255);
+    
+    if(flowerColorR > 100) {
+      flowerColorR = 100;
+    }
+    
+    flowerColorR += 40;
+    flowerColorG += 60;
+    flowerColorB += 60;
 
     stroke(flowerColorR, flowerColorG, flowerColorB, 50);
     fill(flowerColorR, flowerColorG, flowerColorB, 50);
