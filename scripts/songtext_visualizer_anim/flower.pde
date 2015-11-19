@@ -18,8 +18,9 @@ class Flower
   public int alpha = 255;
   public boolean isVisible;
 
-  public Flower(float centerX, float centerY, String word)
+  public Flower(float centerX, float centerY, String word, int alpha)
   {
+    this.alpha   = alpha;
     this.centerX = centerX;
     this.centerY = centerY;
     this.word    = word;
@@ -46,11 +47,15 @@ class Flower
     this.colorR += 40;
     this.colorG += 60;
     this.colorB += 60;
+    
+    for (int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
+      float charLen = (int)this.charList[charIndex];
+      this.calculateLeafVeins(charLen);
+    }
   }
 
   public void calculateLeafVeins(float len)
   {  
-
     // do some size boost here
     if (0 == len % 7) {
       len = len / 2;
@@ -64,8 +69,6 @@ class Flower
 
     float x = this.centerX + len * cos(radians(this.currentAngle));
     float y = this.centerY + len * sin(radians(this.currentAngle));
-
-    
 
     float[] coordinates = new float[2];
     coordinates[0] = x;
@@ -97,13 +100,6 @@ class Flower
   {
     stroke(this.colorR, this.colorG, this.colorB, this.alpha);
     fill(this.colorR, this.colorG, this.colorB, this.alpha);
-    
-    
-
-    for (int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
-      float charLen = (int)this.charList[charIndex];
-      this.drawLeafVeins(charLen);
-    }
 
     this.finishLeaf();
   }

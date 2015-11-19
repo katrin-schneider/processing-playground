@@ -7,11 +7,11 @@ int canvasHeight = 710;
 
 ArrayList<Flower> flowerList = new ArrayList<Flower>();
 int flowerCount;
-int currentFlowerIndex = 0;
+float currentScale = 1.0;
 int time;
 int wait             = 200;
-boolean tick;
-int wordYPos         = 0;
+int maxVisibleFlowers = 4;
+int maxAlpha          = 200;
 
 void setup() {
   smooth();
@@ -44,7 +44,7 @@ void setup() {
       float xBase = xStepCurrent - random((canvasWidth/50), xStep) + 10;
       float yBase = yStepCurrent - random((canvasHeight/70), yStep) + 20;
 
-      flowerList.add(new Flower(xBase, yBase, words[j]));
+      flowerList.add(new Flower(xBase, yBase, words[j], maxAlpha));
 
       xStepCurrent += xStep;
     }
@@ -63,25 +63,22 @@ void draw() {
   // set words visible on 
   if(millis() - time >= wait) {
     time = millis();
- 
-    if (currentFlowerIndex < flowerCount) {
-      Flower flower = flowerList.get(currentFlowerIndex);
-      flower.isVisible = true;
-      
-      currentFlowerIndex += 1;
-    } else {
-      currentFlowerIndex = 0;
+    
+    for(int maxVisible = 0; maxVisible <= maxVisibleFlowers; maxVisible++) {
+      Flower flower = flowerList.get((int)random(0,flowerCount-1));
+      if (!flower.isVisible) {
+        flower.isVisible = true;
+        flower.alpha = maxAlpha;
+      }
     }
   }
     
   // loop over all words and render the ones marked visible
   for(Flower flower: flowerList){
     if (flower.isVisible) {
-      
       flower.alpha = flower.alpha - 5;
       flower.drawFlower();
-      
-      
+     
       if (0 >= flower.alpha) {
         flower.isVisible = false;
       }
