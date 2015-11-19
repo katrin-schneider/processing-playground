@@ -1,14 +1,23 @@
+// import flower.pde;
+
 String songtext1   = "Neonschwarz-OnAJourney";
 String songtext2   = "AbsoluteBeginner-Fuechse";
 String currentText = songtext2;
 
-float currentWidth  = 490;
-float currentHeight = 710;
+void setup() {
+ smooth();
+ size(500, 720);
+ background(#1e1e1e);
+ stroke(#FFFFFF, 50);
+  
+ Flower flower = new Flower(200, 200, "dasIstEinKomischerTest");
+ flower.drawFlower();
 
-smooth();
-size(500, 720);
-background(#1e1e1e);
+ Flower flower2 = new Flower(100, 100, "StarWars");
+ flower2.drawFlower();
+}
 
+/*
 String filepath = sketchPath("../../assets/text/" + currentText + ".txt");
 String[] lines = loadStrings(filepath);
 
@@ -39,3 +48,4 @@ for(int i=0; i<lines.length; i++) {
 }
 
 save( sketchPath("../../results/songtext_visualizer/" + currentText + ".currentText") );
+*/
