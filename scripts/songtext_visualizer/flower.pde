@@ -33,7 +33,7 @@ class Flower
   
   public void drawLeafVeins(float len)
   {  
-    len = len / 5;
+    len = len / 7;
     
     float x = this.centerX + len * cos(radians(this.currentAngle));
     float y = this.centerY + len * sin(radians(this.currentAngle));
