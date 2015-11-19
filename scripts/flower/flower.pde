@@ -1,21 +1,16 @@
-size(640, 360);
-smooth();
-background(0);
-stroke(153);
-
 class Flower
 {
+  public int     segmentCount;
   public float   centerX;
   public float   centerY;
-  public int     segmentCount;
   public float   angle;
+  public float   currentAngle;
   
   public String  word;
   
   public char[]  charList;
   public ArrayList<float[]> pointList = new ArrayList<float[]>();
   
-  public float   currentAngle;
   
   
   public Flower(float centerX, float centerY, String word)
@@ -36,7 +31,7 @@ class Flower
     this.word.getChars(0, len, this.charList, 0);    
   }
   
-  public void drawLeaf(float len)
+  public void drawLeafVeins(float len)
   {  
     float x = this.centerX + len * cos(radians(this.currentAngle));
     float y = this.centerY + len * sin(radians(this.currentAngle));
@@ -51,7 +46,7 @@ class Flower
     this.currentAngle += this.angle;
   }
   
-  public void drawLeafOutline()
+  public void finishLeaf()
   {
     for(int coord1 = 0; coord1 < this.pointList.size(); coord1++) {
       int coord2 = coord1 + 1;
@@ -74,15 +69,9 @@ class Flower
     for(int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
       
       float charLen = (int)this.charList[charIndex];
-      this.drawLeaf(charLen); 
+      this.drawLeafVeins(charLen); 
     }
     
-    this.drawLeafOutline();
+    this.finishLeaf();
   }
 }
-
-Flower flower = new Flower(200, 200, "dasIstEinKomischerTest");
-flower.drawFlower();
-
-Flower flower2 = new Flower(100, 100, "StarWars");
-flower2.drawFlower();
