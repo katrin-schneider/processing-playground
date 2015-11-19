@@ -34,10 +34,11 @@ void setup() {
       if (0 == words[j].length()) {
         continue;
       }
-      float xBase = xStepCurrent - (xStep / 2);
-      float yBase = yStepCurrent - (yStep / 2);
+      float xBase = xStepCurrent - random((canvasLength/50), xStep) + 10;
+      float yBase = yStepCurrent - random((canvasHeight/70), yStep) + 20;
       
       // please add some randomness again, here
+      
 
       Flower flower = new Flower(xBase, yBase, words[j]);
       flower.drawFlower();
