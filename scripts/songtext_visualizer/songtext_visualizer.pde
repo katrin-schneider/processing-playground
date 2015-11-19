@@ -10,7 +10,7 @@ void setup() {
   String songtext1   = "Neonschwarz-OnAJourney";
   String songtext2   = "AbsoluteBeginner-Fuechse";
   String songtext3   = "starwars";
-  String currentText = songtext3;
+  String currentText = songtext1;
 
   String filepath = sketchPath("../../assets/text/" + currentText + ".txt");
   String[] lines  = loadStrings(filepath);
@@ -36,9 +36,6 @@ void setup() {
       }
       float xBase = xStepCurrent - random((canvasLength/50), xStep) + 10;
       float yBase = yStepCurrent - random((canvasHeight/70), yStep) + 20;
-      
-      // please add some randomness again, here
-      
 
       Flower flower = new Flower(xBase, yBase, words[j]);
       flower.drawFlower();
