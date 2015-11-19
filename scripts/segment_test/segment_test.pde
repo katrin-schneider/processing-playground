@@ -5,19 +5,19 @@ stroke(153);
 
 class Flower
 {
-  public float centerX;
-  public float centerY;
-  public int segmentCount;
-  public float angle;
+  public float  centerX;
+  public float  centerY;
+  public int    segmentCount;
+  public float  angle;
   
-  public float currentX;
-  public float currentY;
+  public float  currentX;
+  public float  currentY;
   
   public String word;
   
   public char[] charList;
   
-  public float currentAngle;
+  public float  currentAngle;
   
   
   public Flower(float centerX, float centerY, String word)
@@ -49,8 +49,6 @@ class Flower
     line(this.centerX, this.centerY, x, y);
     line(this.currentX, this.currentY, x, y);
     
-    println(this.currentAngle);
-    
     this.currentX = x;
     this.currentY = y;
     
@@ -59,16 +57,16 @@ class Flower
   
   public void drawFlower()
   {
-    //line(this.centerX, this.centerY, this.currentX, this.currentY);
-    
     for(int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
       
       int charLen = (int)this.charList[charIndex];
-      this.drawLeaf(charLen);
-      
+      this.drawLeaf(charLen);    
     }
   }
 }
 
-Flower flower = new Flower(200, 200, "ewtwetewtewtewtwetet");
+Flower flower = new Flower(200, 200, "dasIstEinKomischerTest");
 flower.drawFlower();
+
+Flower flower2 = new Flower(100, 100, "lalalalaalalalala");
+flower2.drawFlower();
