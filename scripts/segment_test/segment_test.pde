@@ -41,3 +41,9 @@ float yP3 = round(yP1 + d*sin(u));
 line(xP1, yP1, xP3, yP3);
 
 line(xP2, yP2, xP3, yP3);
+
+
+
+
+
+
