@@ -5,7 +5,6 @@ stroke(153);
 
 class Flower
 {
-  
   public float centerX;
   public float centerY;
   public int segmentCount;
@@ -14,21 +13,33 @@ class Flower
   public float currentX;
   public float currentY;
   
-  public Flower(float centerX, float centerY, int segmentCount)
+  public String word;
+  
+  public char[] charList;
+  
+  
+  public Flower(float centerX, float centerY, String word)
   {
     this.centerX = centerX;
     this.centerY = centerY;
-    this.segmentCount = segmentCount;
+    this.word    = word;
+   
+    this.segmentCount = word.length();
     this.angle = 360 / this.segmentCount;
+    
+    int len = this.word.length();
+    
+    this.charList = new char[len]; 
+    
+    this.word.getChars(0, len, this.charList, 0);
+    
+    this.currentX = this.centerX;
+    this.currentY = this.centerY - this.charList[0];    
   }
   
-  public void drawSegment(float len)
+  public void drawLeaf(float len)
   {
-    if (0 == this.currentX && 0 == this.currentY) {
-      this.currentX = this.centerX;
-      this.currentY = this.centerY - len;    
-    }
-    
+   
     /*
     Winkel = Drehwinkel in Grad (0-360)
     X = alte X-Koordinate
@@ -49,8 +60,8 @@ class Flower
     float d = sqrt((this.currentX-this.centerX)*(this.currentX-this.centerX) + (this.currentY-this.centerY)*(this.currentY-this.centerY));
     float newX = round(this.centerX + d*cos(u));
     float newY = round(this.centerY + d*sin(u));
+   
     
-    line(this.centerX, this.centerY, this.currentX, this.currentY);
     line(this.centerX, this.centerY, newX, newY);
     line(this.currentX, this.currentY, newX, newY);
     
@@ -58,8 +69,17 @@ class Flower
     this.currentY = newY;
   }
   
+  public void drawFlower()
+  {
+    line(this.centerX, this.centerY, this.currentX, this.currentY);
+    
+   
+    for(int charIndex = 0; charIndex < this.charList.size(); charIndex ++) {
+      int charLen = (int)this.charList[charIndex];
+      this.drawLeaf(charLen);
+    }
+  }
 }
 
-Flower flower = new Flower(100, 100, 5);
-flower.drawSegment(40);
-flower.drawSegment(30);
+Flower flower = new Flower(100, 100, "Fitzlibutzli");
+flower.drawFlower();
