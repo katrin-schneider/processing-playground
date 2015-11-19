@@ -10,8 +10,13 @@ class Flower
 
   public char[]  charList;
   public ArrayList<float[]> pointList = new ArrayList<float[]>();
-
-
+  
+  public int colorR;
+  public int colorG;
+  public int colorB;
+  
+  public int alpha = 255;
+  public boolean isVisible;
 
   public Flower(float centerX, float centerY, String word)
   {
@@ -29,9 +34,21 @@ class Flower
     this.charList = new char[len]; 
 
     this.word.getChars(0, len, this.charList, 0);
+    
+    this.colorR = round(random(1, this.charList.length) / this.charList.length * 255);
+    this.colorG = round(random(1, this.charList.length) / this.charList.length * 255);
+    this.colorB = round(random(1, this.charList.length) / this.charList.length * 255);
+    
+    if(this.colorR > 100) {
+      this.colorR = 100;
+    }
+    
+    this.colorR += 40;
+    this.colorG += 60;
+    this.colorB += 60;
   }
 
-  public void drawLeafVeins(float len)
+  public void calculateLeafVeins(float len)
   {  
 
     // do some size boost here
@@ -48,7 +65,7 @@ class Flower
     float x = this.centerX + len * cos(radians(this.currentAngle));
     float y = this.centerY + len * sin(radians(this.currentAngle));
 
-    line(this.centerX, this.centerY, x, y);
+    
 
     float[] coordinates = new float[2];
     coordinates[0] = x;
@@ -70,31 +87,20 @@ class Flower
       float[] coordinate1 = this.pointList.get(coord1);
       float[] coordinate2 = this.pointList.get(coord2);
 
+      line(this.centerX, this.centerY, coordinate1[0], coordinate1[1]);
       line(coordinate1[0], coordinate1[1], coordinate2[0], coordinate2[1]);
-
       triangle(this.centerX, this.centerY, coordinate1[0], coordinate1[1], coordinate2[0], coordinate2[1]);
     }
   }
 
   public void drawFlower()
   {
-    int flowerColorR = round(random(1, this.charList.length) / this.charList.length * 255);
-    int flowerColorG = round(random(1, this.charList.length) / this.charList.length * 255);
-    int flowerColorB = round(random(1, this.charList.length) / this.charList.length * 255);
+    stroke(this.colorR, this.colorG, this.colorB, this.alpha);
+    fill(this.colorR, this.colorG, this.colorB, this.alpha);
     
-    if(flowerColorR > 100) {
-      flowerColorR = 100;
-    }
     
-    flowerColorR += 40;
-    flowerColorG += 60;
-    flowerColorB += 60;
-
-    stroke(flowerColorR, flowerColorG, flowerColorB, 50);
-    fill(flowerColorR, flowerColorG, flowerColorB, 50);
 
     for (int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
-
       float charLen = (int)this.charList[charIndex];
       this.drawLeafVeins(charLen);
     }
