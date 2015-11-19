@@ -74,7 +74,7 @@ class Flower
     line(this.centerX, this.centerY, this.currentX, this.currentY);
     
    
-    for(int charIndex = 0; charIndex < this.charList.size(); charIndex ++) {
+    for(int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
       int charLen = (int)this.charList[charIndex];
       this.drawLeaf(charLen);
     }
