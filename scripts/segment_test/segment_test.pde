@@ -17,6 +17,8 @@ class Flower
   
   public char[] charList;
   
+  public float currentAngle;
+  
   
   public Flower(float centerX, float centerY, String word)
   {
@@ -26,6 +28,8 @@ class Flower
    
     this.segmentCount = word.length();
     this.angle = 360 / this.segmentCount;
+    
+    this.currentAngle = this.angle;
     
     int len = this.word.length();
     
@@ -38,48 +42,33 @@ class Flower
   }
   
   public void drawLeaf(float len)
-  {
+  {  
+    float x = this.centerX + len * cos(radians(this.currentAngle));
+    float y = this.centerY + len * sin(radians(this.currentAngle));
    
-    /*
-    Winkel = Drehwinkel in Grad (0-360)
-    X = alte X-Koordinate
-    Y = alte Y-Koordinate
-    Xn = neue X-Koordinate
-    Yn = neue y-Koordinate
-    Xc = X-Koordinate des Zentrums
-    Yc = Y-Koordinate des Zentrums
-    u und d Hilfsvariablen (typ extended)
+    line(this.centerX, this.centerY, x, y);
+    line(this.currentX, this.currentY, x, y);
     
-    u:= Winkel * Pi/180 + arctan2(Y-Yc,X-Xc);
-    d:= sqrt((X-Xc)*(X-Xc) + (Y-Yc)*(Y-Yc));
-    xn:=round(Xc+d*cos(u));
-    yn:=round(Yc+d*sin(u));
-    */
+    println(this.currentAngle);
     
-    float u = this.angle * PI / 180 + atan2(this.currentY - this.centerY,this.currentX - this.centerX);
-    float d = sqrt((this.currentX-this.centerX)*(this.currentX-this.centerX) + (this.currentY-this.centerY)*(this.currentY-this.centerY));
-    float newX = round(this.centerX + d*cos(u));
-    float newY = round(this.centerY + d*sin(u));
-   
+    this.currentX = x;
+    this.currentY = y;
     
-    line(this.centerX, this.centerY, newX, newY);
-    line(this.currentX, this.currentY, newX, newY);
-    
-    this.currentX = newX;
-    this.currentY = newY;
+    this.currentAngle += this.angle;
   }
   
   public void drawFlower()
   {
-    line(this.centerX, this.centerY, this.currentX, this.currentY);
+    //line(this.centerX, this.centerY, this.currentX, this.currentY);
     
-   
     for(int charIndex = 0; charIndex < this.charList.length; charIndex ++) {
+      
       int charLen = (int)this.charList[charIndex];
       this.drawLeaf(charLen);
+      
     }
   }
 }
 
-Flower flower = new Flower(100, 100, "Fitzlibutzli");
+Flower flower = new Flower(200, 200, "ewtwetewtewtewtwetet");
 flower.drawFlower();
